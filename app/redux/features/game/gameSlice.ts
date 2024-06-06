@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../store";
 import { api } from "@/app/services/api";
 
 // Define a type for the slice state
@@ -10,7 +9,6 @@ export interface GameState {
   userAnswers: string[];
   submitted: boolean;
   inProgress: boolean;
-  test: boolean;
 }
 
 // Define the initial state using that type
@@ -21,7 +19,6 @@ const initialState: GameState = {
   userAnswers: [],
   submitted: false,
   inProgress: false,
-  test: true
 };
 
 export const fetchQuestions = createAsyncThunk(
