@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <div className="flex flex-col justify-center items-center h-screen text-center">{children}</div>
+        </body>
       </html>
     </StoreProvider>
   );

@@ -1,15 +1,26 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { api } from "@/app/services/api";
+import { SubmitGamePayload } from "../record/recordSlice";
 
 // Define a type for the slice state
 export interface GameState {
-  questions: [];
+  questions: TriviaQuestion[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null | undefined;
-  userAnswers: string[];
+  userAnswers: (string|null)[];
   submitted: boolean;
   inProgress: boolean;
 }
+
+export interface TriviaQuestion {
+  category: string;
+  type: string;
+  difficulty: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
 
 // Define the initial state using that type
 const initialState: GameState = {
@@ -21,9 +32,14 @@ const initialState: GameState = {
   inProgress: false,
 };
 
+interface FetchQuestionsPayload {
+  results: TriviaQuestion[]
+}
+
+
 export const fetchQuestions = createAsyncThunk(
   "game/fetchQuestions",
-  async (_, { dispatch, getState }) => {
+  async (_, { dispatch, getState, rejectWithValue }) => {
     const state: any = getState();
     // const { amount, difficulty, type } = state.options;
     let response;
@@ -34,12 +50,8 @@ export const fetchQuestions = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-      if (error.response.status === 429) {
-        setTimeout(() => {
-          dispatch(fetchQuestions());
-        }, 2000);
-      }
-      return error.response;
+      console.error(error.response)
+      return rejectWithValue(error.response.message);
     }
   },
 );
@@ -56,7 +68,7 @@ export const gameSlice = createSlice({
       const { answer, index } = action.payload;
       state.userAnswers[index] = answer;
     },
-    submitGame: (state) => {
+    submitGame: (state, action: PayloadAction<SubmitGamePayload>) => {
       state.submitted = true;
       state.inProgress = false;
     },
@@ -67,7 +79,7 @@ export const gameSlice = createSlice({
         state.status = "loading";
         state.inProgress = false;
       })
-      .addCase(fetchQuestions.fulfilled, (state, action) => {
+      .addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<FetchQuestionsPayload>) => {
         state.status = "succeeded";
         state.questions = action.payload.results;
         state.inProgress = true;
