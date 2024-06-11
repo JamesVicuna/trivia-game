@@ -18,3 +18,8 @@ body {
     transition: border-color 0.25s;
     color: white;
 }
+
+.MuiFormControlLabel-root {
+    margin-left: 0px;
+    margin-right: 0px;
+}

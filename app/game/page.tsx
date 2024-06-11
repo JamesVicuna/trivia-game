@@ -52,9 +52,10 @@ export default function Game() {
           height: "400px",
           alignSelf: "center",
         }}
+        className=" bg-gray-400 rounded-lg p-4"
       >
         <Grid item xs={6} sx={{ marginTop: "40px" }}>
-          <Container sx={{ width: "95%" }}>
+          <Container sx={{ width: "95%" }} className="text-start">
             {/* Question */}
             <Typography variant="body1" gutterBottom>
               Question {currentQuestionIndex + 1} of {questions.length}
@@ -98,7 +99,7 @@ export default function Game() {
                   label={answer}
                   value={answer}
                   sx={{
-                    width: "340px",
+                    width: "auto",
                     backgroundColor: "#3B4D66",
                     border: "1px solid",
                     borderRadius: "24px",
@@ -107,6 +108,8 @@ export default function Game() {
                     marginBottom: "24px",
                     display: "flex",
                     alignItems: "center",
+                    marginLeft: '0px',
+                    marginRight: '0px'
                   }}
                 />
               ),
@@ -121,7 +124,8 @@ export default function Game() {
             }}
           >
             <button
-              style={{ width: "165px" }}
+              style={{ width: "49%" }}
+              className="app-button"
               onClick={() => setCurrentQuestionIndex((index) => index - 1)}
               disabled={currentQuestionIndex === 0 ? true : false}
             >
@@ -129,7 +133,8 @@ export default function Game() {
             </button>
 
             <button
-              style={{ width: "165px" }}
+              style={{ width: "49%" }}
+              className="app-button"
               onClick={() => setCurrentQuestionIndex((index) => index + 1)}
               disabled={
                 currentQuestionIndex === questions.length - 1 ? true : false
@@ -140,7 +145,7 @@ export default function Game() {
           </Box>
 
           <br />
-          {canSubmit && <button onClick={handleSubmit}>Submit</button>}
+          {canSubmit && <button className="app-button" onClick={handleSubmit}>Submit</button>}
         </Grid>
       </Grid>
     </>

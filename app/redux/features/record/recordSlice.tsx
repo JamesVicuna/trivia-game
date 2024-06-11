@@ -4,20 +4,24 @@ import {
   nanoid,
   createAction,
 } from "@reduxjs/toolkit";
+import { TriviaQuestion } from "../game/gameSlice";
 
 interface RecordState {
   history: Game[];
 }
 
+
 export interface SubmitGamePayload {
-  userAnswers: (string | null)[];
-  questions: { correct_answer: string }[];
+  // userAnswers: (string | null)[];
+  userAnswers: string[];
+  questions: TriviaQuestion[];
   time: number;
 }
 
-interface Game {
-  userAnswers: (string | null)[];
-  questions: object[];
+export interface Game {
+  // userAnswers: (string | null)[];
+  userAnswers: string[];
+  questions: TriviaQuestion[];
   time: number;
   score: number;
   id: string;

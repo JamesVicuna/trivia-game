@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@red
 import { api } from "@/app/services/api";
 import { SubmitGamePayload } from "../record/recordSlice";
 
-// Define a type for the slice state
 export interface GameState {
   questions: TriviaQuestion[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null | undefined;
-  userAnswers: (string|null)[];
+  // userAnswers: (string|null)[];
+  userAnswers: string[];
   submitted: boolean;
   inProgress: boolean;
 }
@@ -21,8 +21,6 @@ export interface TriviaQuestion {
   incorrect_answers: string[];
 }
 
-
-// Define the initial state using that type
 const initialState: GameState = {
   questions: [],
   status: "idle",
@@ -46,7 +44,7 @@ export const fetchQuestions = createAsyncThunk(
     try {
       response = await api.get(
         // `?amount=${10}&difficulty=${difficulty}&type=${type}`,
-        `?amount=${10}`,
+        `?amount=${1}`,
       );
       return response.data;
     } catch (error: any) {
