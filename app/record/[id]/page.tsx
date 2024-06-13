@@ -16,25 +16,27 @@ export default function SingleRecord({ params }: { params: { id: string } }) {
   const { questions, userAnswers } = game;
 
   return (
-    <div>
+    <div className="rounded-lg bg-slate-300 p-4">
       {questions.map((question, i) => (
-        <div key={i}>
-          <Typography variant="h5">{`${i + 1}. ${
-            question.question
-          }`}</Typography>
-          <Typography sx={{ color: "green" }}>
-            {question.correct_answer}
-          </Typography>
-          {question.incorrect_answers.map((incorrect_answer, index) => (
+        <div key={i} className="flex flex-row mb-6">
+          <div className="mr-5">
+            <Typography variant="h3">{`${i + 1}`}</Typography>
+          </div>
+          <br />
+          <div className="text-left">
+            <Typography variant="h5">{`${question.question}`}</Typography>
             <Typography
               sx={{
-                color: userAnswers[i] === incorrect_answer ? "red" : "white",
+                color:
+                  userAnswers[i] === question.correct_answer ? "green" : "red",
               }}
-              key={index}
             >
-              {incorrect_answer}
+              Your Answer: {userAnswers[i]}
             </Typography>
-          ))}
+            {userAnswers[i] !== question.correct_answer && (
+              <Typography>Correct Answer: {question.correct_answer}</Typography>
+            )}
+          </div>
         </div>
       ))}
     </div>

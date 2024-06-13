@@ -39,12 +39,11 @@ export const fetchQuestions = createAsyncThunk(
   "game/fetchQuestions",
   async (_, { dispatch, getState, rejectWithValue }) => {
     const state: any = getState();
-    // const { amount, difficulty, type } = state.options;
+    const { amount, difficulty, type } = state.options;
     let response;
     try {
       response = await api.get(
-        // `?amount=${10}&difficulty=${difficulty}&type=${type}`,
-        `?amount=${1}`,
+        `?amount=${amount}&difficulty=${difficulty}&type=${type}`,
       );
       return response.data;
     } catch (error: any) {

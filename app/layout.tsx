@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { StoreProvider } from "./redux/StoreProvider";
+import { Navbar } from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <StoreProvider>
       <html lang="en">
         <body className={inter.className}>
+          <Navbar />
           <div className="flex flex-col justify-center items-center h-screen text-center">{children}</div>
         </body>
       </html>

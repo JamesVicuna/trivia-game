@@ -98,9 +98,10 @@ export default function Game() {
                   control={<Radio />}
                   label={answer}
                   value={answer}
+                  className=" bg-slate-300"
                   sx={{
                     width: "auto",
-                    backgroundColor: "#3B4D66",
+                    // backgroundColor: "#3B4D66",
                     border: "1px solid",
                     borderRadius: "24px",
                     borderWidth: "1px",

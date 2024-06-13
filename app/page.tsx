@@ -5,6 +5,8 @@ import { Button, CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { fetchQuestions } from "./redux/features/game/gameSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Options } from "./components/Options";
 
 export default function Home() {
   const router = useRouter();
@@ -26,14 +28,20 @@ export default function Home() {
 
   return (
     <>
-      {/* <div className="flex h-screen flex-col items-center justify-center bg-pink-300"> */}
       <div>
-        <button
-          className="app-button"
-          onClick={handleNewGame}
-        >
-          Play
-        </button>
+        <div className="flex flex-row gap-4">
+          <button className="app-button" onClick={handleNewGame}>
+            Play
+          </button>
+          <Options />
+        </div>
+        <br />
+        <br />
+        {inProgress && (
+          <Link href="/game">
+            <button className="app-button">Continue game...</button>
+          </Link>
+        )}
       </div>
     </>
   );
